@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    .calculator {
+      width: 250px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 0 auto;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+      text-align: center;
+    }
+    
+    .input-group {
+      margin-bottom: 10px;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 5px;
+      font-size: 18px;
+    }
+    
+    .input-group select {
+      width: 100%;
+      padding: 5px;
+      font-size: 18px;
+    }
+    
+    .input-group .btn {
+      width: 100%;
+      padding: 8px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>Simple Calculator</h2>
+    <div class="input-group">
+      <input type="number" id="num1" placeholder="Enter first number" />
+    </div>
+    <div class="input-group">
+      <select id="operator">
+        <option value="add">+</option>
+        <option value="subtract">-</option>
+        <option value="multiply">*</option>
+        <option value="divide">/</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <input type="number" id="num2" placeholder="Enter second number" />
+    </div>
+    <div class="input-group">
+      <button class="btn" onclick="calculate()">Calculate</button>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+  
+  <script>
+    function calculate() {
+      var num1 = parseFloat(document.getElementById('num1').value);
+      var num2 = parseFloat(document.getElementById('num2').value);
+      var operator = document.getElementById('operator').value;
+      var result = document.getElementById('result');
+      
+      if (isNaN(num1) || isNaN(num2)) {
+        result.textContent = 'Please enter valid numbers';
+        return;
+      }
+      
+      var output;
+      
+      switch (operator) {
+        case 'add':
+          output = num1 + num2;
+          break;
+        case 'subtract':
+          output = num1 - num2;
+          break;
+        case 'multiply':
+          output = num1 * num2;
+          break;
+        case 'divide':
+          if (num2 === 0) {
+            output = 'Cannot divide by zero';
+          } else {
+            output = num1 / num2;
+          }
+          break;
+        default:
+          output = 'Invalid operator';
+      }
+      
+      result.textContent = 'Result: ' + output;
+    }
+  </script>
+</body>
+</html>

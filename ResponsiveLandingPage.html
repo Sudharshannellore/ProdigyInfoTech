@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Navigation Menu</title>
+  <style>
+    .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent;
+    z-index: 999;
+  }
+  
+  .nav-item {
+    display: inline-block;
+    padding: 10px;
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .content {
+    height: 2000px;
+    padding-top: 100px; 
+  }
+  
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="#" class="nav-item">Home</a>
+    <a href="#" class="nav-item">About</a>
+    <a href="#" class="nav-item">Services</a>
+    <a href="#" class="nav-item">Contact</a>
+  </div>
+
+  <div class="content">
+
+</div>
+
+  <script>
+    window.addEventListener('scroll', function() {
+    var navbar = document.querySelector('.navbar');
+  
+    if (window.scrollY > 0) {
+      navbar.style.backgroundColor = 'black';
+    } else {
+      navbar.style.backgroundColor = 'transparent';
+    }
+  });
+  
+  var navItems = document.querySelectorAll('.nav-item');
+  
+  for (var i = 0; i < navItems.length; i++) {
+    navItems[i].addEventListener('mouseover', function() {
+      this.style.color = 'red';
+    });
+  
+    navItems[i].addEventListener('mouseout', function() {
+      this.style.color = 'white';
+    });
+  }
+  
+  </script>
+</body>
+</html>

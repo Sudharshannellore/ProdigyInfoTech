@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <style>
+    .container {
+    margin-bottom: 10px;
+  }
+  
+  button {
+    margin-left: 10px;
+  }
+  
+  .completed {
+    text-decoration: line-through;
+  }
+  
+  </style>
+</head>
+<body>
+  <h1>To-Do List</h1>
+
+  <div class="container">
+    <input type="text" id="taskInput" placeholder="Enter a new task">
+    <button onclick="addTask()">Add Task</button>
+  </div>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function addTask() {
+  const taskInput = document.getElementById('taskInput');
+  const taskText = taskInput.value.trim();
+
+  if (taskText !== '') {
+    const task = {
+      id: Date.now(),
+      text: taskText,
+      completed: false
+    };
+
+    tasks.push(task);
+    saveTasks();
+    renderTasks();
+    taskInput.value = '';
+  }
+}
+
+function toggleTask(id) {
+  const task = tasks.find(task => task.id === id);
+
+  if (task) {
+    task.completed = !task.completed;
+    saveTasks();
+    renderTasks();
+  }
+}
+
+function deleteTask(id) {
+  tasks = tasks.filter(task => task.id !== id);
+  saveTasks();
+  renderTasks();
+}
+
+function renderTasks() {
+  const taskList = document.getElementById('taskList');
+  taskList.innerHTML = '';
+
+  tasks.forEach(task => {
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `
+      <input type="checkbox" onclick="toggleTask(${task.id})" ${task.completed ? 'checked' : ''}>
+      <span class="${task.completed ? 'completed' : ''}">${task.text}</span>
+      <button onclick="deleteTask(${task.id})">Delete</button>
+    `;
+
+    taskList.appendChild(listItem);
+  });
+}
+
+renderTasks();
+  </script>
+</body>
+</html>
